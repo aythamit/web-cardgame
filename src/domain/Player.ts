@@ -1,6 +1,6 @@
-import { Card } from "./Card";
-import { PlayerPlay } from "./PlayerPlay";
-import { RoundType } from "./Game";
+import {Card} from "./Card";
+import {PlayerPlay} from "./PlayerPlay";
+import {RoundType} from "./Game";
 
 export class Player {
   private name: string;
@@ -13,6 +13,11 @@ export class Player {
   addCardToHand(card: Card) {
     this.hand.push(card);
   }
+
+  getHandLength(){
+    return this.hand.length;
+  }
+
   getName() {
     return this.name;
   }

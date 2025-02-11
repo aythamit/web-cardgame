@@ -1,5 +1,5 @@
-import { Player } from "./Player";
-import { PlayerPlay } from "./PlayerPlay";
+import {Player} from "./Player";
+import {PlayerPlay} from "./PlayerPlay";
 
 export type RoundType = "normal" | "stairs";
 export type PlayType = "play" | "pass";
@@ -82,9 +82,7 @@ export class Game {
         console.log(` ---- ${player.getName()} PASA ----`);
         this.cardsOnPlay.push(new PlayerPlay(player, playType, []));
       }
-      this.currentPlayerIndex++;
-      this.currentPlayer =
-        this.players[this.currentPlayerIndex % this.players.length];
+      this.checkNextPlayerCards()
       console.log(`Current player: ${this.currentPlayer.getName()}`);
 
       if (this.isRoundFinished()) {
@@ -95,6 +93,22 @@ export class Game {
       }
     } else {
       console.error(`Aún no te toca ${player.getName()}`);
+    }
+  }
+
+  private checkNextPlayerCards(){
+    this.currentPlayerIndex++;
+    let count = 0;
+    this.currentPlayer =
+        this.players[this.currentPlayerIndex % this.players.length];
+
+    while(this.currentPlayer.getHandLength() == 0 && count < this.players.length - 1) {
+
+      console.log(`${this.currentPlayer.getName()} no tiene cartas, pasamos al siguiente`);
+      count++;
+      this.currentPlayerIndex++;
+      this.currentPlayer =
+          this.players[this.currentPlayerIndex % this.players.length];
     }
   }
 }
